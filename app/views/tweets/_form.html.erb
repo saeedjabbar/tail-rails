@@ -1,0 +1,24 @@
+<%= form_with model: tweet do |form| %>
+    <%= render "shared/form_errors", form: form %>
+    <div class="mb-3">
+        <%= form.label :twitter_account_id %>
+        <%= form.collection_select :twitter_account_id, Current.user.twitter_accounts, :id, :username, {}, {class: 'block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline'} %>
+        <%= link_to "Connect Another Twitter Account", "/auth/twitter", class: 'font-bold hover:text-red' %>
+    </div>
+    <div class="mb-3">
+        <%= form.label :body %>
+        <%= form.text_area :body %>
+    </div>    
+    <div class="mb-3">
+        <%= form.label :published_at %>
+        <%= form.datetime_select :published_at %>
+    </div>        
+    <div class="mb-3">
+        <%= form.button "Schedule Tweet", class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    </div>
+    <div class="mb-3">
+    <% if form.object.persisted? %>
+        <%= link_to "Delete Tweet", form.object, method: :delete, data: { confirm: "Are you sure?"},  class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    <% end %>
+    </div>
+<% end %>
